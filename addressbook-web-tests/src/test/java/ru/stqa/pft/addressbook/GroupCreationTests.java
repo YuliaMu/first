@@ -17,16 +17,7 @@ public class GroupCreationTests {
     }
 
     private void login(String login, String password) {
-        wd.get("http://localhost/addressbook/group.php");
-        wd.findElement(By.id("LoginForm")).click();
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys(login);
-        wd.findElement(By.id("LoginForm")).click();
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("//input[@value='Login']")).click();
+        ContactCreationTests.login(login, password, wd);
     }
 
     @Test
@@ -68,7 +59,12 @@ public class GroupCreationTests {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() throws Exception {
+        logout();
         wd.quit();
+    }
+
+    private void logout() {
+        wd.findElement(By.linkText("Logout")).click();
     }
 
     private boolean isElementPresent(By by) {
